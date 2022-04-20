@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         // création d'un thread qui est interdit
         // impossibilité de communiquer avec le UI thread
         // à partir d'un thread créé manuellement
+        // avec les logs cela fonctionne car on ne solicite
+        // pas le UI thread qui est le main thread
         val runnable = Runnable {
             Log.d(
                 MAIN_ACTIVITY_LOG,
