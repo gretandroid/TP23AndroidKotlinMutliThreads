@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 //        }
         CoroutineScope(Dispatchers.Main).launch {
             val result = longProcess()
-            display(result!!)
+            display("\n$result")
         }
     }
 
