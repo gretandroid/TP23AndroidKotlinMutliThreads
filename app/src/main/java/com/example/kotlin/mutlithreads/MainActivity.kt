@@ -7,10 +7,9 @@ import android.os.Message
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.mutlithreads.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.net.URL
+import java.nio.charset.Charset
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,9 +93,13 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         //Coroutines
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val result = quickProcess()
+//            display(result)
+//        }
         CoroutineScope(Dispatchers.Main).launch {
-            val result = quickProcess()
-            display(result)
+            val result = longProcess()
+            display(result!!)
         }
     }
 
@@ -105,9 +108,18 @@ class MainActivity : AppCompatActivity() {
         return "\nquick message from coroutine"
     }
 
-    suspend fun longProcess(): String {
-        delay(500)
-        return "\nquick message from coroutine"
+    suspend fun longProcess(): String? {
+        var content: String?
+        // Dispatchers.IO est utilisé pour les traitements long
+        // exemple remote access, db.
+        // Dispatchers.Default pour les traitements
+        // qui demandent bcp de resources processeur
+        // exemple encodage video, parsing de gros fichiers
+        withContext(Dispatchers.IO) {
+            val url = URL(POKEREQUEST)
+            content = url.readText(Charset.defaultCharset())
+        }
+        return content
     }
 
     fun display(msg: String) {
