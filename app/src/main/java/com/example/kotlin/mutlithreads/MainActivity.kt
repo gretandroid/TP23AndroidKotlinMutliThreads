@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickButtonEvent(view: View) {
+        binding.threadOutputView.text=""
         display("code du thread UI")
         display("code du thread UI")
         display("code du thread UI")
