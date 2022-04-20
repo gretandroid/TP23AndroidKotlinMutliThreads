@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.mutlithreads.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlin.concurrent.thread
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -93,12 +94,20 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         //Coroutines
-
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = quickProcess()
+            display(result)
+        }
     }
 
     suspend fun quickProcess(): String {
-        delay(2000)
-        return "chose quelque"
+        delay(500)
+        return "\nquick message from coroutine"
+    }
+
+    suspend fun longProcess(): String {
+        delay(500)
+        return "\nquick message from coroutine"
     }
 
     fun display(msg: String) {
