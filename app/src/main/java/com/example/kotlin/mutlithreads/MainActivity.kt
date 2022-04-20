@@ -1,8 +1,10 @@
 package com.example.kotlin.mutlithreads
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.kotlin.mutlithreads.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,23 +31,30 @@ class MainActivity : AppCompatActivity() {
 
 //        // plus besoin
 //        binding.threadOutputView.text = ""
-//        display("code du thread UI")
-//        display("code du thread UI")
-//        display("code du thread UI")
+//        display("code du thread UI 1")
+//        display("code du thread UI 2")
+//        display("code du thread UI 3")
         //Fin du Traitement dans le thread UI
 
         // création d'un thread qui est interdit
         // impossibilité de communiquer avec le UI thread
         // à partir d'un thread créé manuellement
         val runnable = Runnable {
-            display("avant la boucle")
+            Log.d(
+                MAIN_ACTIVITY_LOG,
+                "avant la boucle"
+            )
             for (i in 1..10) {
-                display("loop : $i")
+                Log.d(
+                    MAIN_ACTIVITY_LOG,
+                    "loop : $i"
+                )
             }
-            display("après la boucle")
+            Log.d(
+                MAIN_ACTIVITY_LOG,
+                "après la boucle"
+            )
         }
-
-
         val thread = Thread(runnable)
         thread.start()
     }
