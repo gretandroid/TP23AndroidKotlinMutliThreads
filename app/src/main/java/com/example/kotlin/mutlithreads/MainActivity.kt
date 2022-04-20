@@ -66,20 +66,33 @@ class MainActivity : AppCompatActivity() {
 //        val thread = Thread(runnable)
 //        thread.start()
 
-        // une autre façon d'appeler un nouveau thread
-        thread(start = true) {
-            Log.d(MAIN_ACTIVITY_LOG, "avant la boucle")
-            val bundle = Bundle()
-            for (i in 1..10) {
-                val msgValue = "loop : $i"
-                Log.d(MAIN_ACTIVITY_LOG, msgValue)
-                bundle.putString(MESSAGE_KEY, msgValue)
-                Message().also {
-                    it.data = bundle
-                    handler.sendMessage(it)
-                }
-                Thread.sleep(200)
-            }
+//        // une autre façon d'appeler un nouveau thread
+//        thread(start = true) {
+//            Log.d(MAIN_ACTIVITY_LOG, "avant la boucle")
+//            for (i in 1..10) {
+//                val bundle = Bundle()
+//                val msgValue = "loop : $i"
+//                Log.d(MAIN_ACTIVITY_LOG, msgValue)
+//                bundle.putString(MESSAGE_KEY, msgValue)
+//                //also fait une reflexion de l'objet sur lui meme
+//                // en s'appelant par it
+//                Message().also {
+//                    it.data = bundle
+//                    handler.sendMessage(it)
+//                }
+//                //équivalent de also avec declaration de variable
+//                // pour traitement intermediaire
+////                val msg = Message()
+////                msg.data = bundle
+////                handler.sendMessage(msg)
+//
+////                Thread.sleep(200)
+//            }
+
+        //Coroutines
+
+
+
             Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
         }
 
