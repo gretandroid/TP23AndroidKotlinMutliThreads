@@ -65,16 +65,25 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        val thread = Thread(runnable)
 //        thread.start()
+
         // une autre façon d'appeler un nouveau thread
         thread(start = true) {
             Log.d(MAIN_ACTIVITY_LOG, "avant la boucle")
+            val bundle = Bundle()
             for (i in 1..10) {
-                Log.d(MAIN_ACTIVITY_LOG, "loop : $i")
+                val msgValue = "loop : $i"
+                Log.d(MAIN_ACTIVITY_LOG, msgValue)
+                bundle.putString(MESSAGE_KEY, msgValue)
+                Message().also {
+                    it.data = bundle
+                    handler.sendMessage(it)
+                }
+                Thread.sleep(200)
             }
             Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
         }
-    }
 
+    }
 
     fun display(msg: String) {
         binding.threadOutputView.append("${msg}\n")
