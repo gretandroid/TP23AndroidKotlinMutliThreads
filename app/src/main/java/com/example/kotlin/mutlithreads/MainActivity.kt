@@ -1,14 +1,29 @@
 package com.example.kotlin.mutlithreads
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.kotlin.mutlithreads.databinding.ActivityMainBinding
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
+    // le handler permet de récuperer des android.os.Message provenant
+    // d'autre threads dans le thread UI
+    private val handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            val bundle = msg.data
+            val message = bundle?.getString(MESSAGE_KEY)
+            display(message!!)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,25 +56,25 @@ class MainActivity : AppCompatActivity() {
         // à partir d'un thread créé manuellement
         // avec les logs cela fonctionne car on ne solicite
         // pas le UI thread qui est le main thread
-        val runnable = Runnable {
-            Log.d(
-                MAIN_ACTIVITY_LOG,
-                "avant la boucle"
-            )
+//        val runnable = Runnable {
+//            Log.d(MAIN_ACTIVITY_LOG, "avant la boucle")
+//            for (i in 1..10) {
+//                Log.d(MAIN_ACTIVITY_LOG, "loop : $i")
+//            }
+//            Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
+//        }
+//        val thread = Thread(runnable)
+//        thread.start()
+        // une autre façon d'appeler un nouveau thread
+        thread(start = true) {
+            Log.d(MAIN_ACTIVITY_LOG, "avant la boucle")
             for (i in 1..10) {
-                Log.d(
-                    MAIN_ACTIVITY_LOG,
-                    "loop : $i"
-                )
+                Log.d(MAIN_ACTIVITY_LOG, "loop : $i")
             }
-            Log.d(
-                MAIN_ACTIVITY_LOG,
-                "après la boucle"
-            )
+            Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
         }
-        val thread = Thread(runnable)
-        thread.start()
     }
+
 
     fun display(msg: String) {
         binding.threadOutputView.append("${msg}\n")
