@@ -88,13 +88,13 @@ class MainActivity : AppCompatActivity() {
 //
 ////                Thread.sleep(200)
 //            }
+//            Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
+//        }
 
         //Coroutines
 
 
 
-            Log.d(MAIN_ACTIVITY_LOG, "après la boucle")
-        }
 
     }
 
