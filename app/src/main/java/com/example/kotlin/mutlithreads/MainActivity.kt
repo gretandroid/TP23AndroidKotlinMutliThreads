@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin.mutlithreads.databinding.ActivityMainBinding
+import kotlinx.coroutines.delay
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -93,9 +94,11 @@ class MainActivity : AppCompatActivity() {
 
         //Coroutines
 
+    }
 
-
-
+    suspend fun quickProcess(): String {
+        delay(2000)
+        return "chose quelque"
     }
 
     fun display(msg: String) {
