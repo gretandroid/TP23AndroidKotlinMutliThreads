@@ -15,6 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
     }
 
-    fun onClickButtonEvent(view: View) {}
-    fun display(msg: String) {}
+    fun onClickButtonEvent(view: View) {
+        display("code du thread UI")
+        display("code du thread UI")
+        display("code du thread UI")
+    }
+
+    fun display(msg: String) {
+        binding.threadOutputView.append("${msg}\n")
+    }
 }
